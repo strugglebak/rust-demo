@@ -53,4 +53,8 @@ fn main() {
         println!("The value is {}", a[index]);
         index += 1;
     }
+
+    for element in a {
+        println!("The value is {}", element);
+    }
 }
