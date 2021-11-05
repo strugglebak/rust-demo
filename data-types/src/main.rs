@@ -14,4 +14,8 @@ fn main() {
     let t = true;
     let f: bool = false;
     println!("t is {}, f is {}", t, f);
+
+    let tup: (i32, f64, u8) = (500, 0.3, 1);
+    let (_x, _y, _z) = tup;
+    println!("The value of y is: {}", _y);
 }
