@@ -45,4 +45,12 @@ fn main() {
     };
 
     println!("The result is {}", result);
+
+    let a = [1, 2, 3, 4, 5];
+    let mut index = 0;
+
+    while index < 5 {
+        println!("The value is {}", a[index]);
+        index += 1;
+    }
 }
