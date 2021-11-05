@@ -12,5 +12,8 @@ fn main() {
     }
 
     let number = if true { 4 } else { 5 };
+    // error
+    // if else must has the same value type
+    // let number = if true { 4 } else { "six" };
     println!("The value of number is {}", number);
 }
