@@ -49,12 +49,19 @@ fn main() {
     let a = [1, 2, 3, 4, 5];
     let mut index = 0;
 
+    println!("use while");
     while index < 5 {
         println!("The value is {}", a[index]);
         index += 1;
     }
 
+    println!("use for in");
     for element in a {
+        println!("The value is {}", element);
+    }
+
+    println!("use range for in");
+    for element in (1..4).rev() {
         println!("The value is {}", element);
     }
 }
