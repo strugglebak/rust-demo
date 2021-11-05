@@ -16,4 +16,22 @@ fn main() {
     // if else must has the same value type
     // let number = if true { 4 } else { "six" };
     println!("The value of number is {}", number);
+
+    let mut count = 0;
+    'count_loop: loop {
+        println!("count = {}", count);
+        let mut remaining = 10;
+        loop {
+            println!("remaining is {}", remaining);
+            if remaining == 9 {
+                break;
+            }
+            if count == 2 {
+                break 'count_loop;
+            }
+            remaining -= 1;
+        }
+        count += 1;
+    }
+    println!("End count is {}", count);
 }
