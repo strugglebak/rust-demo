@@ -18,4 +18,5 @@ fn main() {
     let tup: (i32, f64, u8) = (500, 0.3, 1);
     let (_x, _y, _z) = tup;
     println!("The value of y is: {}", _y);
+    println!("The first value of tup is: {}", tup.0);
 }
