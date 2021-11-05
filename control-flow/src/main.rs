@@ -10,4 +10,7 @@ fn main() {
     } else {
         println!("number >= 5");
     }
+
+    let number = if true { 4 } else { 5 };
+    println!("The value of number is {}", number);
 }
