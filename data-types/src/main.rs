@@ -19,4 +19,9 @@ fn main() {
     let (_x, _y, _z) = tup;
     println!("The value of y is: {}", _y);
     println!("The first value of tup is: {}", tup.0);
+
+    let a: [i32; 5] = [1, 2, 3, 4, 5];
+    println!("a[0] is {}", a[0]);
+    let a = [3; 5];
+    println!("a[0] is {}", a[0]);
 }
