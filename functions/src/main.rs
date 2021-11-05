@@ -1,8 +1,8 @@
 fn main() {
     println!("Hello, world!");
-    xxx();
+    xxx(111);
 }
 
-fn xxx() {
-    println!("This xxx function");
+fn xxx(x: i32) {
+    println!("This xxx function, parameter is {}", x);
 }
