@@ -10,4 +10,8 @@ fn main() {
     let x = 2.0;
     let y: f32 = 3.0;
     println!("x is {}, y is {}", x, y);
+
+    let t = true;
+    let f: bool = false;
+    println!("t is {}, f is {}", t, f);
 }
