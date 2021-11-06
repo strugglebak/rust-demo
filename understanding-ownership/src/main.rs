@@ -28,4 +28,9 @@ fn main() {
 
     let s3 = s1.clone();
     println!("s1 = {}, s3 = {}", s1, s3);
+
+    // Stack-Only data: copy
+    let x = 5;
+    let y = x;
+    println!("x = {}, y = {}", x, y);
 }
