@@ -11,4 +11,9 @@ fn main() {
     let mut s = String::from("hello world");
     s.push_str(", ni hao");
     println!("{}", s);
+
+    {
+        // s here is valid
+        let _s = String::from("hello world");
+    }   // the scope is over, s is no longer valid
 }
