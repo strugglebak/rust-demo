@@ -22,6 +22,10 @@ fn main() {
     let slice = &s[..];
     println!("{}", slice);
 
+    // let s = "hello world";
+    // s type is '&str'
+    // which is a immutable reference
+
     s.clear();
 }
 
