@@ -34,6 +34,10 @@ fn main() {
     println!("{}, {}", r1, r2);
     let r3 = &mut s;  // ok
     println!("{}", r3);
+
+    // create dangle reference
+    let r = dangle();
+    println!("{}", r);
 }
 
 fn calculate_length(s: &String) -> usize {
@@ -46,4 +50,18 @@ fn calculate_length(s: &String) -> usize {
 
 fn change(s: &mut String) {
     s.push_str(", world")
+}
+
+// fn dangle() -> &String {
+//     let s = String::from("hello");
+//     // when this function finished, s will be deallocated, so the &s will be a 'NULL'
+//     // But Rust does not allow a 'NULL' reference
+//     &s
+// }
+// so you should
+fn dangle() -> String {
+    let s = String::from("hello");
+    // when this function finished, s will be deallocated, so the &s will be a 'NULL'
+    // But Rust does not allow a 'NULL' reference
+    s
 }
