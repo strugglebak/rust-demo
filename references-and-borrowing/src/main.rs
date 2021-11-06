@@ -61,7 +61,5 @@ fn change(s: &mut String) {
 // so you should
 fn dangle() -> String {
     let s = String::from("hello");
-    // when this function finished, s will be deallocated, so the &s will be a 'NULL'
-    // But Rust does not allow a 'NULL' reference
     s
 }
