@@ -37,6 +37,16 @@ fn main() {
     println!("x = {}, y = {}", x, y);
 
     makes_copy(x);
+
+    let string1 = gives_ownership();
+    let string2 = String::from("hello");
+    let string3 = takes_and_gives_back(string2);
+
+    println!("string1 is {}, string3 is {}", string1, string3);
+
+    let string4 = String::from("hello");
+    let (string5, l) = calculate_length(string4);
+    println!("The length of '{}' is {}", string5, l);
 }
 
 fn takes_ownership(s: String) {
@@ -45,4 +55,18 @@ fn takes_ownership(s: String) {
 
 fn makes_copy(num: i32) {
     println!("{}", num);
+}
+
+fn gives_ownership() -> String {
+    let s = String::from("yours");
+    s
+}
+
+fn takes_and_gives_back(s: String) -> String {
+    s
+}
+
+fn calculate_length(s: String) -> (String, usize) {
+    let l = s.len();
+    (s, l)
 }
