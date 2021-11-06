@@ -29,8 +29,9 @@ fn main() {
     s.clear();
 }
 
-
-fn first_world(s: &String) -> &str {
+// fn first_world(s: &String) -> &str {
+// allow both &String and &str parameter
+fn first_world(s: &str) -> &str {
     // convert string to an array of bytes
     let bytes = s.as_bytes();
 
