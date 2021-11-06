@@ -29,8 +29,20 @@ fn main() {
     let s3 = s1.clone();
     println!("s1 = {}, s3 = {}", s1, s3);
 
+    takes_ownership(s1);
+
     // Stack-Only data: copy
     let x = 5;
     let y = x;
     println!("x = {}, y = {}", x, y);
+
+    makes_copy(x);
+}
+
+fn takes_ownership(s: String) {
+    println!("{}", s);
+}
+
+fn makes_copy(num: i32) {
+    println!("{}", num);
 }
