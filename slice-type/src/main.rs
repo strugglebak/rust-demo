@@ -1,8 +1,8 @@
 fn main() {
     let mut s = String::from("hello world");
     let word = first_world(&s);
-
     println!("word is '{}'", word);
+
     let hello = &s[0..5];
     let world = &s[6..11];
     println!("{}, {}", hello, world);
@@ -22,12 +22,11 @@ fn main() {
     let slice = &s[..];
     println!("{}", slice);
 
-
     s.clear();
 }
 
 
-fn first_world(s: &String) -> usize {
+fn first_world(s: &String) -> &str {
     // convert string to an array of bytes
     let bytes = s.as_bytes();
 
@@ -37,9 +36,9 @@ fn first_world(s: &String) -> usize {
     for (i, &item) in bytes.iter().enumerate() {
         // b' ' means space
         if item == b' ' {
-            return i;
+            return &s[..i];
         }
     }
 
-    s.len()
+    &s[..]
 }
