@@ -21,8 +21,11 @@ fn main() {
 
     let s1 = String::from("hello");
     // just copy the reference of s1
-    let _s2 = s1;
+    // let _s2 = s1;
 
     // error: s1 no longer be valid
     // println!("{}, world", s1);
+
+    let s3 = s1.clone();
+    println!("s1 = {}, s3 = {}", s1, s3);
 }
