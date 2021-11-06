@@ -13,6 +13,7 @@ fn main() {
     println!("{}", s);
 
     {
+        // Resource Acquisition is Initialization
         // s here is valid
         let _s = String::from("hello world");
     }   // the scope is over, s is no longer valid
