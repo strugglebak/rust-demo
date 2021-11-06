@@ -1,9 +1,29 @@
 fn main() {
     let mut s = String::from("hello world");
     let word = first_world(&s);
-    s.clear();
 
     println!("word is '{}'", word);
+    let hello = &s[0..5];
+    let world = &s[6..11];
+    println!("{}, {}", hello, world);
+
+    // start at zero index
+    // means [0..2]
+    let slice = &s[..2];
+    println!("{}", slice);
+
+    // end at len index
+    // means [3..len]
+    let len = s.len();
+    let slice = &s[3..];
+    println!("{}, {}", slice, len);
+
+    // get entire string
+    let slice = &s[..];
+    println!("{}", slice);
+
+
+    s.clear();
 }
 
 
