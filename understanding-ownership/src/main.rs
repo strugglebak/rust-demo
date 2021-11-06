@@ -6,4 +6,9 @@ fn main() {
     }
     // error: s is not valid
     // println!("The value of s is {}", s);
+
+    // String can be mutated but string literals can not
+    let mut s = String::from("hello world");
+    s.push_str(", ni hao");
+    println!("{}", s);
 }
