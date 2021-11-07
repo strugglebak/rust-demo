@@ -34,6 +34,9 @@ fn main() {
 
     println!("black: {}, {}, {}", black.0, black.1, black.2);
     println!("origin: {}, {}, {}", origin.0, origin.1, origin.2);
+
+    struct AlwaysEqual;
+    let _sub = AlwaysEqual;
 }
 
 struct User {
