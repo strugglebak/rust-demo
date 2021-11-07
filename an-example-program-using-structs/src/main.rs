@@ -14,7 +14,7 @@ fn main() {
     );
 
     let rect1 = Rectangle {
-        width: w,
+        width: dbg!(w),
         height: h
     };
     println!(
@@ -23,6 +23,7 @@ fn main() {
     );
 
     println!("rect1 is {:#?}", rect1);
+    dbg!(&rect1);
 }
 
 fn area(width: u32, height: u32) -> u32 {
