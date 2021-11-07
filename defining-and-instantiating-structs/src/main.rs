@@ -8,8 +8,23 @@ fn main() {
 
     user1.email = String::from("user2@example.com");
     println!("{}, {}, {}, {}", user1.active, user1.username, user1.email, user1.sign_in_count);
-    let user2 = build_user(String::from("user2@example.com"), String::from("user2"));
+
+    let user3 = build_user(String::from("user3@example.com"), String::from("user3"));
+    println!("{}, {}, {}, {}", user3.active, user3.username, user3.email, user3.sign_in_count);
+
+    let user2 = User {
+        email: String::from("user3@example.com"),
+        ..user1
+    };
     println!("{}, {}, {}, {}", user2.active, user2.username, user2.email, user2.sign_in_count);
+
+    println!("user1.email is {}", user1.email);
+
+    // but it will be error
+    // let user4 = User {
+    //     ..user1
+    // };
+    // println!("user1.email is {}", user1.email);
 }
 
 struct User {
