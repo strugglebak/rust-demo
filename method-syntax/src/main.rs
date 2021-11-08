@@ -26,6 +26,8 @@ impl Rectangle {
 }
 
 impl Rectangle {
+    // without the self as the first parameter,
+    // the function will be the associated function for Rectangle
     fn square(size: u32) -> Rectangle {
         Rectangle {
             width: size,
