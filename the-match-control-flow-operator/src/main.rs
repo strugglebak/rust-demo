@@ -24,6 +24,7 @@ fn main() {
 
 fn plus_one(x: Option<i32>) -> Option<i32> {
     match x {
+        // matches are exhaustive, so matching None is very necessary
         None => {
             println!("The x is None!");
             None
