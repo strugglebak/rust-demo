@@ -42,7 +42,9 @@ mod back_of_house {
 }
 
 // use crate::front_of_house::hosting;
-use self::front_of_house::hosting;
+// hosting now is public
+// so external code could take advantage of this new path
+pub use self::front_of_house::hosting;
 use crate::front_of_house::hosting::add_to_waitlist;
 
 use std::collections::HashMap;
