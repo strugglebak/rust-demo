@@ -43,6 +43,21 @@ mod back_of_house {
 
 // use crate::front_of_house::hosting;
 use self::front_of_house::hosting;
+use crate::front_of_house::hosting::add_to_waitlist;
+
+use std::collections::HashMap;
+
+// use Result but in deferent parent modules
+use std::fmt;
+use std::io;
+
+fn function1() -> fmt::Result {
+    Ok(())
+}
+
+fn function2() -> io::Result<()> {
+    Ok(())
+}
 
 pub fn eat_at_restaurant() {
     // absolute path
@@ -54,6 +69,8 @@ pub fn eat_at_restaurant() {
     // use 'use' keyword
     hosting::add_to_waitlist();
 
+    add_to_waitlist();
+
     // create a Breakfast type meal
     let mut meal = back_of_house::Breakfast::summer("Rye");
     // access meal toast var
@@ -64,4 +81,7 @@ pub fn eat_at_restaurant() {
 
     let _order1 = back_of_house::Appetizer::Soup;
     let _order2 = back_of_house::Appetizer::Salad;
+
+    let mut map = HashMap::new();
+    map.insert(1, 2);
 }
