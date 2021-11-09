@@ -41,12 +41,18 @@ mod back_of_house {
     fn cook_order() {}
 }
 
+// use crate::front_of_house::hosting;
+use self::front_of_house::hosting;
+
 pub fn eat_at_restaurant() {
     // absolute path
     crate::front_of_house::hosting::add_to_waitlist();
 
     // relative path
     front_of_house::hosting::add_to_waitlist();
+
+    // use 'use' keyword
+    hosting::add_to_waitlist();
 
     // create a Breakfast type meal
     let mut meal = back_of_house::Breakfast::summer("Rye");
