@@ -1,19 +1,9 @@
 use std::io::{self, Write};
 
+// mod name is the same as the filename
+mod front_of_house;
+
 fn serve_order() {}
-
-mod front_of_house {
-    pub mod hosting {
-        pub fn add_to_waitlist() {}
-        fn seat_at_table() {}
-    }
-
-    mod serving {
-        fn take_order() {}
-        fn serve_order() {}
-        fn take_payment() {}
-    }
-}
 
 mod back_of_house {
     // only pub the enum, so the var in enum can be public
@@ -46,8 +36,10 @@ mod back_of_house {
 // use crate::front_of_house::hosting;
 // hosting now is public
 // so external code could take advantage of this new path
-pub use self::front_of_house::hosting;
-use crate::front_of_house::hosting::add_to_waitlist;
+// pub use self::front_of_house::hosting;
+// use crate::front_of_house::hosting::add_to_waitlist;
+
+pub use crate::front_of_house::hosting;
 
 use std::collections::HashMap;
 
@@ -65,15 +57,15 @@ fn function2() -> IoResult<()> {
 
 pub fn eat_at_restaurant() {
     // absolute path
-    crate::front_of_house::hosting::add_to_waitlist();
+    // crate::front_of_house::hosting::add_to_waitlist();
 
     // relative path
-    front_of_house::hosting::add_to_waitlist();
+    // front_of_house::hosting::add_to_waitlist();
 
     // use 'use' keyword
     hosting::add_to_waitlist();
 
-    add_to_waitlist();
+    // add_to_waitlist();
 
     // create a Breakfast type meal
     let mut meal = back_of_house::Breakfast::summer("Rye");
