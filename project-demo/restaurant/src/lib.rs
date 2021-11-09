@@ -1,3 +1,5 @@
+use std::io::{self, Write};
+
 fn serve_order() {}
 
 mod front_of_house {
