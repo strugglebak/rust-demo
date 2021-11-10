@@ -7,5 +7,7 @@ fn main() {
     v.push(4);
 
     // vec! is a macro
-    let a = vec![1, 2, 3];
+    {
+        let a = vec![1, 2, 3];
+    } // a is freed when is goes out of scope
 }
