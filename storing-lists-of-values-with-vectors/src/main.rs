@@ -8,6 +8,27 @@ fn main() {
 
     // vec! is a macro
     {
-        let a = vec![1, 2, 3];
-    } // a is freed when is goes out of scope
+        let _a = vec![1, 2, 3];
+    } // _a is freed when is goes out of scope
+
+    let mut b = vec![1, 2, 3, 4, 5];
+    let third: &i32 = &b[2];
+    println!("The third element is {}", third);
+
+    match b.get(2) {
+        Some(third) => println!("The third element is {}", third),
+        None => println!("There is no third element."),
+    }
+
+    // error: out of bound
+    // let _does_not_exist = &b[100];
+    // let _does_not_exist = b.get(100);
+
+    let first = &b[0];
+    // error:
+    // push might require allocating new memory and copying the old elements to the new space
+    // so the first references might change
+    // the reference to the first element would be pointing to deallocated memory
+    // b.push(6);
+    println!("The first element is: {}", first);
 }
