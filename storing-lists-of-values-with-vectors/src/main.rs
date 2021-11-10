@@ -31,4 +31,8 @@ fn main() {
     // the reference to the first element would be pointing to deallocated memory
     // b.push(6);
     println!("The first element is: {}", first);
+
+    for i in &mut b {
+        println!("{}", *i + 50);
+    }
 }
