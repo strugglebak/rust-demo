@@ -35,4 +35,16 @@ fn main() {
     for i in &mut b {
         println!("{}", *i + 50);
     }
+
+    enum SpreadsheetCell {
+        Int(i32),
+        Float(f64),
+        Text(String),
+    }
+    // the type of all elements is SpreadsheetCell
+    let _row = vec![
+        SpreadsheetCell::Int(3),
+        SpreadsheetCell::Float(10.12),
+        SpreadsheetCell::Text(String::from("hello")),
+    ];
 }
