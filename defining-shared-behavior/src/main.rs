@@ -35,9 +35,24 @@ impl Summary for Tweet {
     }
 }
 
-pub fn notify(item: &impl Summary) {
-    println!("Breaking news! {}", item.summarize());
-}
+// pub fn notify(item: &impl Summary) {
+//     println!("Breaking news! {}", item.summarize());
+// }
+// trait bound syntax
+
+// pub fn notify<T: Summary>(item: &T) {
+//     println!("Breaking news! {}", item.summarize());
+// }
+
+// add another trait
+// pub fn notify(item: &(impl Summary + Display)) {
+//     println!("Breaking news! {}", item.summarize());
+// }
+
+// generic version
+// pub fn notify<T: Summary + Display>(item: &T) {
+//     println!("Breaking news! {}", item.summarize());
+// }
 
 fn main() {
     let tweet = Tweet {
