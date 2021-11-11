@@ -1,7 +1,8 @@
 use std::fs::{self, File};
 use std::io::{ErrorKind, self, Read};
+use std::error::Error;
 
-fn main() {
+fn main() -> Result<(), Box<dyn Error>> {
     let f = File::open("hello.txt");
 
     let _f = match f {
@@ -36,6 +37,9 @@ fn main() {
         Ok(c) => println!("file content is {}", c),
         Err(error) => panic!("Problem opening the file: {:?}", error),
     }
+
+    let _f4 = File::open("world.txt")?;
+    Ok(())
 }
 
 fn read_content_from_file() -> Result<String, io::Error> {
