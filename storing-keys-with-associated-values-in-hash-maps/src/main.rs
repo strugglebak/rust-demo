@@ -28,4 +28,18 @@ fn main() {
     // HashMap take ownership of them both
     // because they are all String
     // println!("name: {}, value: {}", field_name, field_value);
+
+    let team_name = String::from("Blue");
+    // score is Some(&10)
+    // get returns Option<&V>
+    let score = scores.get(&team_name);
+    match score {
+        Some(i) => println!("score is {}", i),
+        _ => ()
+    }
+
+    for (k, v) in scores {
+        println!("{}:{}", k, v);
+    }
+
 }
