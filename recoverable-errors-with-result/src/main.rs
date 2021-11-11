@@ -1,5 +1,5 @@
 use std::fs::File;
-use std::io::ErrorKind;
+use std::io::{ErrorKind, self, Read};
 
 fn main() {
     let f = File::open("hello.txt");
@@ -31,4 +31,23 @@ fn main() {
     // all unwrap calls that panic print the same message
     // so use expect will be more concise
     let _f3 = File::open("hello.txt").unwrap();
+
+    match read_content_from_file() {
+        Ok(c) => println!("file content is {}", c),
+        Err(error) => panic!("Problem opening the file: {:?}", error),
+    }
+}
+
+fn read_content_from_file() -> Result<String, io::Error> {
+    let f = File::open("hello.txt");
+    let mut f = match f {
+        Ok(file) => file,
+        Err(e) => return Err(e),
+    };
+
+    let mut s = String::new();
+    match f.read_to_string(&mut s) {
+        Ok(_) => Ok(s),
+        Err(e) => Err(e)
+    }
 }
