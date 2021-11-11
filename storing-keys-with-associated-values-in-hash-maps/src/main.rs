@@ -9,6 +9,11 @@ fn main() {
     scores.insert(String::from("Red"), 50);
     scores.insert(String::from("Red"), 60);
 
+    // Yellow key doesn't exist in scores HashMap
+    // so the value of Yellow key is 70
+    scores.entry(String::from("Yellow")).or_insert(70);
+    scores.entry(String::from("Red")).or_insert(0);
+
     // Red is 60
     println!("{:?}", scores);
 
