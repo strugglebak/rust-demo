@@ -53,4 +53,12 @@ fn main() {
         println!("{}:{}", k, v);
     }
 
+    let mut new_map = HashMap::new();
+    let text = "hello world wonderful world";
+    for word in text.split_whitespace() {
+        // or_insert method actually returns a mutable reference (&mut V)
+        let count = new_map.entry(word).or_insert(0);
+        *count += 1;
+    }
+    println!("{:?}", new_map);
 }
