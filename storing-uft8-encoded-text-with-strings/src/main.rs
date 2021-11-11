@@ -73,4 +73,14 @@ fn main() {
     // because the index it accessed is invalid
     // let x1 = &x[0..1];
     println!("x1 is {}", x1);
+
+    // other walk through string methods
+    // valid Unicode scalar values may be made up of more than 1 byte
+    for c in "नमस्ते".chars() {
+        println!("{}", c);
+    }
+
+    for b in "नमस्ते".bytes() {
+        println!("{}", b);
+    }
 }
