@@ -15,10 +15,10 @@ fn main() {
     let f: bool = false;
     println!("t is {}, f is {}", t, f);
 
-    let tup: (i32, f64, u8) = (500, 0.3, 1);
-    let (_x, _y, _z) = tup;
+    let tuple: (i32, f64, u8) = (500, 0.3, 1);
+    let (_x, _y, _z) = tuple;
     println!("The value of y is: {}", _y);
-    println!("The first value of tup is: {}", tup.0);
+    println!("The first value of tup is: {}", tuple.0);
 
     let a: [i32; 5] = [1, 2, 3, 4, 5];
     println!("a[0] is {}", a[0]);
