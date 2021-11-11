@@ -4,7 +4,13 @@ fn main() {
     let mut scores = HashMap::new();
 
     scores.insert(String::from("Blue"), 10);
+    // the hash map will only contain one key/value pair
+    // because we’re inserting the value for the Red team’s key both times
     scores.insert(String::from("Red"), 50);
+    scores.insert(String::from("Red"), 60);
+
+    // Red is 60
+    println!("{:?}", scores);
 
     let teams = vec![String::from("Blue"), String::from("Red")];
     let init_scores = vec![10, 50];
