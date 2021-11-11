@@ -1,0 +1,31 @@
+use std::collections::HashMap;
+
+fn main() {
+    let mut scores = HashMap::new();
+
+    scores.insert(String::from("Blue"), 10);
+    scores.insert(String::from("Red"), 50);
+
+    let teams = vec![String::from("Blue"), String::from("Red")];
+    let init_scores = vec![10, 50];
+    let mut _scores2: HashMap<_, _>
+        = teams
+            .into_iter()
+            // zip create an iterator of tuples
+            // ("Blue", 10)
+            // ("Red", 50)
+            .zip(init_scores.into_iter())
+            .collect();
+
+    let field_name = String::from("Favor color");
+    let field_value = String::from("Blue");
+
+    let mut map = HashMap::new();
+    map.insert(field_name, field_value);
+
+    // error:
+    // field_name and field_value are invalid at this point
+    // HashMap take ownership of them both
+    // because they are all String
+    // println!("name: {}, value: {}", field_name, field_value);
+}
