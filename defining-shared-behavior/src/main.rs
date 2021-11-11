@@ -54,6 +54,15 @@ impl Summary for Tweet {
 //     println!("Breaking news! {}", item.summarize());
 // }
 
+// fn some_function<T: Display + Clone, U: Clone + Debug>(t: &T, u: &U) -> i32 { }
+// fn some_function<T, U>(t: &T, u: &U) -> i32
+//     where T: Display + Clone,
+//           U: Clone + Debug {
+
+// }
+
+
+
 fn main() {
     let tweet = Tweet {
         username: String::from("ebooks"),
