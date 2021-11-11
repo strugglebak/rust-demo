@@ -51,4 +51,26 @@ fn main() {
     // and this call doesn’t take ownership of any of its parameters
     let s8 = format!("{}-{}-{}", s5, s6, s7);
     println!("s8 is {}", s8);
+
+    // error:
+    // rust strings don't support indexing
+    // let h = s8[0];
+
+    // error:
+    // answer should in fact be 208, but 208 is not a valid character on its own
+    // let hello = "Здравствуйте";
+    // let answer = &hello[0];
+
+    // it isn’t possible to guarantee that performance with a String,
+    // because Rust would have to walk through the contents from the beginning
+    // to the index to determine how many valid characters there were
+
+    // use slicing strings
+    // each of these characters was 2 bytes
+    let x = "Здравствуйте";
+    let x1 = &x[0..4];
+    // will be panic
+    // because the index it accessed is invalid
+    // let x1 = &x[0..1];
+    println!("x1 is {}", x1);
 }
