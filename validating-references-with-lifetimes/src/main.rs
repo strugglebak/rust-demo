@@ -67,6 +67,12 @@ fn main() {
     println!("i.level() = {}", i.level());
     i.announce_and_return_part("hello");
 
+    // `'static`
+    // means that this reference can live for the entire duration of the program
+    // All string literals have the 'static lifetime
+    let s: &'static str = "hello";
+    println!("s is {}", s);
+
 }
 
 fn longest<'a>(x: &'a str, y: &'a str) -> &'a str {
