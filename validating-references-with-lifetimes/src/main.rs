@@ -73,12 +73,31 @@ fn main() {
     let s: &'static str = "hello";
     println!("s is {}", s);
 
+    longest_with_an_announcement("123", "11", "hello");
+
 }
 
 fn longest<'a>(x: &'a str, y: &'a str) -> &'a str {
     // error:
     // it doesn’t know how the lifetimes of x and y relate to the
     // lifetime of the return value
+    if x.len() > y.len() {
+        x
+    } else {
+        y
+    }
+}
+
+use std::fmt::Display;
+// lifetimes are a type of generic
+fn longest_with_an_announcement<'a, T>(
+    x: &'a str,
+    y: &'a str,
+    ann: T,
+) -> &'a str
+where
+    T: Display {
+    println!("Announcement! {}", ann);
     if x.len() > y.len() {
         x
     } else {
