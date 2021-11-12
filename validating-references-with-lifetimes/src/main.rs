@@ -72,3 +72,18 @@ fn longest<'a>(x: &'a str, y: &'a str) -> &'a str {
 //     let result = String::from("really long string");
 //     result.as_str()
 // }
+
+// rules:
+// 1. each parameter that is a reference gets its own lifetime parameter
+// ```rs
+// fn foo<'a>(x: &'a i32);
+// fn foo<'a, 'b>(x: &'a i32, y: &'b i32);
+// ```
+// 2. if there is exactly one input lifetime parameter,
+//    that lifetime is assigned to all output lifetime parameters
+// ```rs
+// fn foo<'a>(x: &'a i32) -> &'a i32
+// ```
+// 3. if there are multiple input lifetime parameters,
+//    but one of them is &self or &mut self because this is a method,
+//    the lifetime of self is assigned to all output lifetime parameters.
