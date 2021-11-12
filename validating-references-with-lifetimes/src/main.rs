@@ -52,3 +52,12 @@ fn longest<'a>(x: &'a str, y: &'a str) -> &'a str {
         y
     }
 }
+
+// error:
+// result goes out of scope and gets cleaned up at the end of the longest function
+// it is a dangling reference
+// the best fix would be to return an owned data type
+// fn longest<'a>(x: &str, y: &str) -> &'a str {
+//     let result = String::from("really long string");
+//     result.as_str()
+// }
