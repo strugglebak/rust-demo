@@ -68,6 +68,18 @@ mod tests {
     fn greater_than_100() {
         Guess::new(200);
     }
+
+    #[test]
+    // returning a Result<T, E> enables you
+    // to use the question mark operator in the body of tests
+    // You can’t use the #[should_panic] annotation on tests that use Result<T, E>
+    fn it_works_2() -> Result<(), String> {
+        if 2 + 2 == 4 {
+            Ok(())
+        } else {
+            Err(String::from("two plus two does not equal four"))
+        }
+    }
 }
 
 #[derive(Debug)]
