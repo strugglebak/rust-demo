@@ -120,7 +120,6 @@ impl<T: Display + PartialOrd> Pair<T> {
     }
 }
 
-
 fn main() {
 
     let pair = Pair::new(1, 2);
