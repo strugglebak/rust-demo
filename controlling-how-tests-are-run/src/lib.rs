@@ -32,6 +32,19 @@ mod tests {
   fn one_hundred() {
     assert_eq!(102, add_two(100));
   }
+
+  #[test]
+  fn it_works() {
+    assert_eq!(2 + 2, 4);
+  }
+
+  // only run the ignored tests
+  // cargo test -- --ignored
+  #[test]
+  #[ignore]
+  fn expensive_test() {
+    // code that takes an hour to run
+  }
 }
 
 fn prints_and_returns_10(a: i32) -> i32 {
