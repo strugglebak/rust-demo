@@ -16,6 +16,7 @@ mod tests {
     assert_eq!(5, value);
   }
 
+  // cargo test add
   #[test]
   fn add_two_and_two() {
     assert_eq!(4, add_two(2));
