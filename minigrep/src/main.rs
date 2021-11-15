@@ -17,7 +17,6 @@ impl Config {
     }
 }
 
-
 fn main() {
     // iterators produce a series of values,
     // and we can call the collect method on an iterator to turn it into a collection,
@@ -35,6 +34,10 @@ fn main() {
     println!("Searching for {}", config.query);
     println!("In file {}", config.filename);
 
+    run(config);
+}
+
+fn run(config: Config) {
     let contents = fs::read_to_string(config.filename)
         .expect("Something went wrong reading the file");
 
