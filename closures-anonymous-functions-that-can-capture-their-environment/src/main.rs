@@ -1,33 +1,45 @@
 use std::thread;
 use std::time::Duration;
+use std::collections::HashMap;
+use std::cmp::Eq;
+use std::hash::Hash;
 
-struct Cacher<T>
+struct Cacher<T, K, V>
 //  it’s a closure by using the Fn trait
 where
-    T: Fn(u32) -> u32,
+    T: Fn(&K) -> V,
+    K: Eq + Hash
 {
     calculation: T,
-    value: Option<u32>,
+    // value: Option<u32>,
+    value: HashMap<K, V>,
 }
 
-impl<T> Cacher<T>
+impl<T, K, V> Cacher<T, K, V>
 where
-    T: Fn(u32) -> u32,
+    T: Fn(&K) -> V,
+    K: Eq + Hash
 {
-    fn new(calculation: T) -> Cacher<T> {
+    fn new(calculation: T) -> Cacher<T, K, V> {
         Cacher {
             calculation,
-            value: None,
+            // value: None,
+            value: HashMap::new(),
         }
     }
 
-    fn value(&mut self, arg: u32) -> u32 {
-        match self.value {
-            Some(v) => v,
-            None => {
-                let v = (self.calculation)(arg);
-                self.value = Some(v);
-                v
+    fn value(&mut self, arg: K) -> &V {
+        use std::collections::hash_map::Entry;
+
+        // the first time we called c.value with 1,
+        // the Cacher instance saved Some(1) in self.value.
+        match self.value.entry(arg) {
+            // if the value of arg key exist
+            Entry::Occupied(entry) => entry.into_mut(),
+            // if the value of arg key does not exist
+            Entry::Vacant(entry) => {
+                let v = (self.calculation)(entry.key());
+                entry.insert(v)
             }
         }
     }
@@ -57,10 +69,12 @@ fn generate_workout(intensity: u32, random_number: u32) {
 // let add_one_v3 = |x|             { x + 1 };
 // let add_one_v4 = |x|               x + 1  ;
 
+    // num is a reference
+    // return type is not a reference
     let mut expensive_closure = Cacher::new(|num| {
         println!("calculating slowly...");
         thread::sleep(Duration::from_secs(2));
-        num
+        *num
     });
     if intensity < 25 {
         println!("Today, do {} pushups!", expensive_closure.value(intensity));
@@ -71,5 +85,30 @@ fn generate_workout(intensity: u32, random_number: u32) {
         } else {
             println!("Today, run for {} minutes!", expensive_closure.value(intensity));
         }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn call_with_different_values() {
+        // a is a reference
+        // return type is not a reference
+        let mut c = Cacher::new(|a| *a);
+
+        let _v1 = c.value(1);
+        let v2 = c.value(2);
+
+        assert_eq!(*v2, 2);
+    }
+
+    #[test]
+    fn value_can_differ_return_type_from_parameter_type() {
+        let mut c = Cacher::new(|_a| String::from("hello"));
+
+        let v = c.value(5);
+        assert_eq!(*v, "hello");
     }
 }
