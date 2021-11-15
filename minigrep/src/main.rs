@@ -1,4 +1,5 @@
 use std::{env, fs, process};
+use std::error::Error;
 
 struct Config {
     query: String,
@@ -37,9 +38,17 @@ fn main() {
     run(config);
 }
 
-fn run(config: Config) {
-    let contents = fs::read_to_string(config.filename)
-        .expect("Something went wrong reading the file");
+// Box<dyn Error> means the function will return a type that implements the Error trait
+// dyn means dynamic
+// This gives us flexibility to return error values
+// that may be of different types in different error cases.
+fn run(config: Config) -> Result<(), Box<dyn Error>> {
+    let contents = fs::read_to_string(config.filename)?;
 
     println!("With text:\n{}", contents);
+
+    // using () like this is the idiomatic way to indicate
+    // that we’re calling run for its side effects only
+    // it doesn’t return a value we need
+    Ok(())
 }
