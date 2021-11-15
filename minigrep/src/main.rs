@@ -6,5 +6,11 @@ fn main() {
     // Note that std::env::args will panic if any argument contains invalid Unicode
     // you can use std::env::args_os instead
     let args: Vec<String> = env::args().collect();
-    println!("{:?}", args);
+    // println!("{:?}", args);
+
+    let query = &args[1];
+    let filename = &args[2];
+
+    println!("Searching for {}", query);
+    println!("In file {}", filename);
 }
