@@ -6,6 +6,15 @@ fn main() {
     for v in v1_iter {
         println!("Got: {}", v);
     }
+
+    let v2: Vec<i32> = vec![1, 2, 3];
+    // error:
+    // iterator adaptors are lazy, and we need to consume the iterator here
+    // v2.iter().map(|x| x + 1);
+    // use collect to consume the iterator
+    let v3: Vec<_> = v2.iter().map(|x| x + 1).collect();
+
+    assert_eq!(v3, vec![1, 2, 3]);
 }
 // pub trait Iterator {
 //     type Item;
