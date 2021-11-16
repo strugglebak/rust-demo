@@ -29,6 +29,14 @@ where
     }
 
     fn value(&mut self, arg: K) -> &V {
+        // match self.value {
+        //     Some(v) => v,
+        //     None => {
+        //         let v = (self.calculation)(arg);
+        //         self.value = Some(v);
+        //         v
+        //     }
+        // }
         use std::collections::hash_map::Entry;
 
         // the first time we called c.value with 1,
@@ -54,7 +62,38 @@ fn main() {
     // error:
     // Those types are then locked into the closure in example_closure
     // let n = example_closure(5);
+    // Closures can capture values from their environment in three ways
+    // 1. `FnOnce`: taking ownership
+    // 2. `FnMut` : borrowing mutably
+    // 3. `Fn`    : borrowing immutably
+    // when creating a environment
+    // Rust infers which trait to use based on
+    // how the closure uses the values from the environment
     generate_workout(simulated_user_specified_value, simulated_random_number);
+
+    let x = 4;
+    let equal_to_x = |z| z == x;
+    // error:
+    // functions are never allowed to capture their environment
+    // defining and using functions will never incur this overhead
+    // fn equal_to_x(z: i32) -> bool {
+    //     z == x
+    // }
+    let y = 4;
+    assert!(equal_to_x(y));
+
+    let x = vec![1, 2, 3];
+    let equal_to_x = move |z| z == x;
+    // error:
+    // x value moved into closure
+    // The closure then has ownership of x
+    // and `main` isn’t allowed to use x anymore in the println!
+    // the traits implemented by a closure type are determined by what the closure does with captured values,
+    // not how it captures them
+    // `move` closures may still implement `Fn` or `FnMut`
+    // println!("can't use x here: {:?}", x);
+    let y = vec![1, 2, 3];
+    assert!(equal_to_x(y));
 }
 
 fn generate_workout(intensity: u32, random_number: u32) {
