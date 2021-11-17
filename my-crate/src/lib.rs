@@ -8,6 +8,13 @@
 ///
 /// assert_eq!(6, answer);
 /// ```
+///
+/// # Panics
+///
+/// # Errors
+///
+/// # Safety
+///
 pub fn add_one(x: i32) -> i32 {
     x + 1
 }
