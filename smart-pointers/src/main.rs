@@ -6,6 +6,14 @@ enum List {
     Nil,
 }
 
+// The Box<T> type is ultimately defined as a tuple struct with one element
+struct MyBox<T>(T);
+impl<T> MyBox<T> {
+    fn new(x: T) -> MyBox<T> {
+        MyBox(x)
+    }
+}
+
 fn main() {
     let b = Box::new(4);
     println!("b = {}", b);
@@ -17,8 +25,12 @@ fn main() {
     let x = 5;
     let y = &x;
     let z = Box::new(x);
+    let a = MyBox::new(x);
 
     assert_eq!(5, x);
     assert_eq!(5, *y);
     assert_eq!(5, *z);
+    // error:
+    // To enable dereferencing with the * operator, we implement the Deref trait.
+    // assert_eq!(5, *a);
 }
