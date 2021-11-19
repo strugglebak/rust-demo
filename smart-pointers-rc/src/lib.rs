@@ -59,7 +59,16 @@ mod tests {
       // error:
       // the send method takes an immutable reference to self
       // self.sent_messages.push(String::from(message));
+      // borrow_mut() returns RefMut<T>
       self.sent_messages.borrow_mut().push(String::from(message));
+
+      // error:
+      // This makes two mutable references in the same scope,
+      // which isn’t allowed
+      // let mut one_borrow = self.sent_messages.borrow_mut();
+      // let mut two_borrow = self.sent_messages.borrow_mut();
+      // one_borrow.push(String::from(message));
+      // two_borrow.push(String::from(message));
     }
   }
 
@@ -71,6 +80,7 @@ mod tests {
     limit_tracker.set_value(80);
 
     // assert_eq!(mock_messenger.sent_messages.len(), 1);
+    // borrow() returns Ref<T>
     assert_eq!(mock_messenger.sent_messages.borrow().len(), 1);
   }
 }
