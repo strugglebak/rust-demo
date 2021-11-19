@@ -31,6 +31,8 @@ impl Drop for CustomSmartPointer {
     }
 }
 
+use std::mem::drop;
+
 fn main() {
     let b = Box::new(4);
     println!("b = {}", b);
@@ -70,7 +72,21 @@ fn main() {
     let _d = CustomSmartPointer {
         data: String::from("other stuff"),
     };
+
     println!("CustomSmartPointer created.");
+
+    // error:
+    // explicit destructor calls not allowed
+    // because Rust would still automatically call drop on the value at the end of main.
+    // This would be a double free error
+    // because Rust would be trying to clean up the same value twice.
+
+    // _c.drop();
+
+    // force to be dropped early as an argument
+    drop(_c);
+
+    println!("CustomSmartPointer dropped before the end of main.");
 }
 
 fn hello(name: &str) {
