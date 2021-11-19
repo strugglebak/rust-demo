@@ -42,4 +42,27 @@ fn main() {
     // To enable dereferencing with the * operator, we implement the Deref trait.
     // the same as *(a.deref())
     assert_eq!(5, *a);
+
+    // Because we implemented the Deref trait on MyBox<T>
+    // Rust can turn &MyBox<String> into &String by calling deref
+    // Becaust the standard library provides an implementation of Deref on String
+    // Rust calls deref again to turn the &String into &str
+    let m = MyBox::new(String::from("Rust"));
+    // more like
+    // hello(&(*m)[..]);
+    // (*m): MyBox<String> -> String
+    // & [..]: &string -> &str
+    hello(&m);
 }
+
+fn hello(name: &str) {
+    println!("Hello, {}!", name);
+}
+
+// you can use the DerefMut trait
+// to override the * operator on mutable references.
+// Rust does deref coercion when it finds types and
+// trait implementations in three cases:
+// 1. From `&T` to `&U` when `T: Deref<Target=U>`
+// 2. From `&mut T` to `&mut U` when `T: DerefMut<Target=U>`
+// 3. From `&mut T` to `&U` when `T: Deref<Target=U>`
