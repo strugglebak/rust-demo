@@ -48,6 +48,10 @@ fn main() {
     thread::spawn(move || {
         let val = String::from("hi");
         tx.send(val).unwrap();
+        // error:
+        // The send function takes ownership of its parameter
+        // and when the value is moved, the receiver takes ownership of it
+        // println!("val is {}", val);
     });
 
     // recv will block the main thread’s execution
