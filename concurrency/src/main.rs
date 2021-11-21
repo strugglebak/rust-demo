@@ -1,5 +1,6 @@
 use std::thread;
 use std::time::Duration;
+use std::sync::mpsc;
 
 fn main() {
     let handle = thread::spawn(|| {
@@ -41,4 +42,18 @@ fn main() {
     // we could no longer call drop on it in the main thread
     // drop(v);
     handle2.join().unwrap();
+
+    // mpsc = multiple producer, single consumer
+    let (tx, rx) = mpsc::channel();
+    thread::spawn(move || {
+        let val = String::from("hi");
+        tx.send(val).unwrap();
+    });
+
+    // recv will block the main thread’s execution
+    // and wait until a value is sent down the channel
+    // try_recv doesn’t block
+    // both return Result<T, E>
+    let received = rx.recv().unwrap();
+    println!("Got: {}", received);
 }
