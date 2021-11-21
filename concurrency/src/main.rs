@@ -46,18 +46,32 @@ fn main() {
     // mpsc = multiple producer, single consumer
     let (tx, rx) = mpsc::channel();
     thread::spawn(move || {
-        let val = String::from("hi");
-        tx.send(val).unwrap();
+        // let val = String::from("hi");
+        // tx.send(val).unwrap();
         // error:
         // The send function takes ownership of its parameter
         // and when the value is moved, the receiver takes ownership of it
         // println!("val is {}", val);
+        let vals = vec![
+            String::from("hi"),
+            String::from("from"),
+            String::from("the"),
+            String::from("thread"),
+        ];
+        for val in vals {
+            tx.send(val).unwrap();
+            thread::sleep(Duration::from_secs(1));
+        }
     });
 
     // recv will block the main thread’s execution
     // and wait until a value is sent down the channel
     // try_recv doesn’t block
     // both return Result<T, E>
-    let received = rx.recv().unwrap();
-    println!("Got: {}", received);
+    // let received = rx.recv().unwrap();
+    // println!("Got: {}", received);
+
+    for received in rx {
+        println!("Got: {}", received);
+    }
 }
