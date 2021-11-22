@@ -41,14 +41,6 @@ impl Draw for SelectBox {
 
     }
 }
-// A trait is object safe
-// 1. The return type isn’t Self
-// 2. There are no generic type parameters
-
-// a method of trait is not object safe
-// pub trait Clone {
-//     fn clone(&self) -> Self;
-// }
 
 fn main() {
     let screen = Screen {
