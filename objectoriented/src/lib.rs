@@ -2,7 +2,17 @@ pub trait Draw {
   fn draw(&self);
 }
 
+// A trait is object safe
+// 1. The return type isn’t Self
+// 2. There are no generic type parameters
+
+// a method of trait is not object safe
+// pub trait Clone {
+//     fn clone(&self) -> Self;
+// }
+
 pub struct Screen {
+  // pub components: Vec<Box<dyn Clone>>,
   pub components: Vec<Box<dyn Draw>>,
 }
 impl Screen {
