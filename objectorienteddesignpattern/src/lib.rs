@@ -1,4 +1,7 @@
 
+// to add a new state, we would only need to add a new struct
+// and implement the trait methods on that one struct
+
 trait State {
   fn request_review(self: Box<Self>) -> Box<dyn State>;
   fn approve(self: Box<Self>) -> Box<dyn State>;
@@ -71,6 +74,9 @@ impl Post {
     // when we call as_ref, an Option<&Box<dyn State>> is returned
     // If we didn’t call as_ref, we would get an error
     // because we can’t move state out of the borrowed &self of the function parameter.
+
+    // content(self)
+    // self as the post parameter
     self.state.as_ref().unwrap().content(self)
   }
 
@@ -92,3 +98,13 @@ impl Post {
     }
   }
 }
+
+// static dispatch
+// which is when the compiler knows what method you’re calling at compile time
+// dynamic dispatch
+// which is when the compiler can’t tell at compile time which method you’re calling
+
+// When we use trait objects, Rust must use dynamic dispatch
+// The compiler doesn’t know all the types that might be used
+// with the code that is using trait objects
+// at runtime, Rust uses the pointers inside the trait object to know which method to call
