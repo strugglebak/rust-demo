@@ -1,9 +1,29 @@
 
 trait State {
   fn request_review(self: Box<Self>) -> Box<dyn State>;
+  fn approve(self: Box<Self>) -> Box<dyn State>;
+  // We add a default implementation for the content method that returns an empty string slice
+  // That means we don’t need to implement content on the Draft and PendingReview structs
+  fn content<'a>(&self, post: &'a Post) -> &'a str {
+    ""
+  }
 }
 struct PendingReview {}
 struct Draft {}
+struct Published {}
+
+impl State for Published {
+  fn request_review(self: Box<Self>) -> Box<dyn State> {
+    self
+  }
+  fn approve(self: Box<Self>) -> Box<dyn State> {
+    self
+  }
+  fn content<'a>(&self, post: &'a Post) -> &'a str {
+    &post.content
+  }
+}
+
 impl State for PendingReview {
   // self: Box<Self>
   // This syntax means the method is only valid when called on a Box holding the type
@@ -14,10 +34,16 @@ impl State for PendingReview {
     // it should stay in the PendingReview state
     Self
   }
+  fn approve(self: Box<Self>) -> Box<dyn State> {
+    Box::new(Published {})
+  }
 }
 impl State for Draft {
   fn request_review(self: Box<Self>) -> Box<dyn State> {
     Box::new(PendingReview {})
+  }
+  fn approve(self: Box<Self>) -> Box<dyn State> {
+    self
   }
 }
 
@@ -38,7 +64,14 @@ impl Post {
   }
 
   pub fn content(&self) -> &str {
-    ""
+    // as_ref
+    // we want a reference to the value inside the Option
+    // rather than ownership of the value
+    // state is an Option<Box<dyn State>>
+    // when we call as_ref, an Option<&Box<dyn State>> is returned
+    // If we didn’t call as_ref, we would get an error
+    // because we can’t move state out of the borrowed &self of the function parameter.
+    self.state.as_ref().unwrap().content(self)
   }
 
   // To consume the old state
@@ -50,6 +83,12 @@ impl Post {
     if let Some(s) = self.state.take() {
       // Then we’ll set the post’s state value to the result of this operation
       self.state = Some(s.request_review())
+    }
+  }
+
+  pub fn approve(&mut self) {
+    if let Some(s) = self.state.take() {
+      self.state = Some(s.approve())
     }
   }
 }
