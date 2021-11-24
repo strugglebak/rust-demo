@@ -175,6 +175,31 @@ fn main() {
     }
 
     println!("{:?}", s);
+
+
+    struct Point2 {
+        x: i32,
+        y: i32,
+        z: i32,
+    }
+
+    let origin = Point2 { x: 0, y: 0, z: 0 };
+    match origin {
+        Point2 { x, .. } => println!("x is {}", x),
+    }
+
+    let numbers = (2, 4, 8, 16, 32);
+    match numbers {
+        (first, .., last) => {
+            println!("Some numbers: {}, {}", first, last);
+        }
+    }
+    // can only be used once per tuple pattern
+    // match numbers {
+    //     (.., second, ..) => {
+    //         println!("Some numbers: {}", second)
+    //     },
+    // }
 }
 
 fn print_coordinates(&(x, y): &(i32, i32)) {
