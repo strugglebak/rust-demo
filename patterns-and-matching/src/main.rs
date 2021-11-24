@@ -164,6 +164,17 @@ fn main() {
             println!("Some numbers: {}, {}, {}", first, third, fifth)
         }
     }
+
+    let s = Some(String::from("Hello!"));
+
+    // error:
+    // the s value will still be moved into _s
+    // if let Some(_s) = s {
+    if let Some(_) = s {
+        println!("found a string");
+    }
+
+    println!("{:?}", s);
 }
 
 fn print_coordinates(&(x, y): &(i32, i32)) {
