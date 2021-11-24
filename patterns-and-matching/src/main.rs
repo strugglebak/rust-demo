@@ -145,6 +145,25 @@ fn main() {
 
     let ((feet, inches), Point { x, y }) = ((3, 10), Point { x: 3, y: -10 });
     foo(3, 4);
+
+    let mut s = Some(5);
+    let new_s = Some(10);
+    match (s, new_s) {
+        (Some(_), Some(_)) => {
+            println!("Can't overwrite an existing customized value");
+        },
+        _ => {
+            s = new_s;
+        }
+    }
+    println!("setting is {:?}", s);
+
+    let numbers = (2, 4, 8, 16, 32);
+    match numbers {
+        (first, _, third, _, fifth) => {
+            println!("Some numbers: {}, {}, {}", first, third, fifth)
+        }
+    }
 }
 
 fn print_coordinates(&(x, y): &(i32, i32)) {
