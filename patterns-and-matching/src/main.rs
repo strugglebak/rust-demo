@@ -40,6 +40,15 @@ fn main() {
 
     // let statements, and for loops can only accept irrefutable patterns
     // The if let and while let expressions accept refutable and irrefutable patterns
+
+    let x = 1;
+
+    match x {
+        1 => println!("one"),
+        2 => println!("two"),
+        3 => println!("three"),
+        _ => println!("anything"),
+    }
 }
 
 fn print_coordinates(&(x, y): &(i32, i32)) {
