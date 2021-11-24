@@ -226,6 +226,21 @@ fn main() {
         4 | 5 | 6 if y => println!("yes"),
         _ => println!("no"),
     }
+
+    enum Message2 {
+        Hello { id: i32 },
+    }
+    let msg2 = Message2::Hello { id: 5 };
+    match msg2 {
+        // Using @ lets us test a value and save it in a variable within one pattern.
+        Message2::Hello {
+            id: id_variable @ 3..=7,
+        } => println!("Found an id in range: {}", id_variable),
+        Message2::Hello { id: 10..=12 } => {
+            println!("Found an id in another range")
+        },
+        Message2::Hello { id } => println!("Found some other id: {}", id),
+    }
 }
 
 fn print_coordinates(&(x, y): &(i32, i32)) {
