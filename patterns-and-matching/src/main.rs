@@ -37,6 +37,9 @@ fn main() {
 
     let point = (x, y);
     print_coordinates(&point);
+
+    // let statements, and for loops can only accept irrefutable patterns
+    // The if let and while let expressions accept refutable and irrefutable patterns
 }
 
 fn print_coordinates(&(x, y): &(i32, i32)) {
