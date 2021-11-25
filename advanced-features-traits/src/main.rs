@@ -88,6 +88,19 @@ impl fmt::Display for Point {
 // we can call outline_print on a Point instance
 // to display it within an outline of asterisks
 
+struct Wrapper(Vec<String>);
+// error:
+// Wrapper is a new type
+// it doesn’t have the methods of the value it’s holding
+// We would have to implement all the methods of Vec<T>
+// directly on Wrapper such that the methods delegate to self.0
+// struct Wrapper(Vec<T>);
+impl fmt::Display for Wrapper {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "[{}]", self.0.join(", "))
+    }
+}
+
 fn main() {
     assert_eq!(
         Point { x: 1, y: 0 } + Point { x: 2, y: 3 },
@@ -120,4 +133,11 @@ fn main() {
 
     // In general, fully qualified syntax is defined as follows:
     // <Type as Trait>::function(receiver_if_method, next_arg, ...);
+
+    let w = Wrapper(vec![
+        String::from("hello"),
+        String::from("world"),
+        String::from("world"),
+    ]);
+    println!("w = {}", w);
 }
