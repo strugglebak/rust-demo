@@ -7,6 +7,10 @@
 // 4. Implement an unsafe trait
 // 5. Access fields of unions S
 
+extern "C" {
+    fn abs(input: i32) -> i32;
+}
+
 fn main() {
     // create an immutable and a mutable raw pointer from references
     let mut num = 5;
@@ -31,6 +35,7 @@ fn main() {
         // println!("r is: {}", *r);
         // we don’t need to add another unsafe block
         dangerous();
+        println!("Absolute value of -3 according to C: {}", abs(-3));
     }
 }
 
