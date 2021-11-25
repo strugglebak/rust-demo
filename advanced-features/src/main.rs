@@ -28,6 +28,8 @@ unsafe impl Foo for i32 {
     // method implementations go here
 }
 
+// Accessing union fields is unsafe because Rust can’t guarantee
+// the type of the data currently being stored in the union instance
 
 fn main() {
     // create an immutable and a mutable raw pointer from references
