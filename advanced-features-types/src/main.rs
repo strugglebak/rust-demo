@@ -32,3 +32,8 @@ fn f1(f: Thunk) {
 // fn f2() -> Thunk {
     // ...
 // }
+
+// the function bar returns never
+fn bar() -> ! {
+    // --snip--
+}
