@@ -11,6 +11,13 @@ extern "C" {
     fn abs(input: i32) -> i32;
 }
 
+static mut COUNTER: u32 = 0;
+fn add_to_count(inc: u32) {
+    unsafe {
+        COUNTER += inc;
+    }
+}
+
 fn main() {
     // create an immutable and a mutable raw pointer from references
     let mut num = 5;
@@ -27,6 +34,8 @@ fn main() {
     assert_eq!(a, &mut [1, 2, 3]);
     assert_eq!(b, &mut [4, 5, 6]);
 
+    add_to_count(3);
+
     // we can’t dereference raw pointers and read the data being pointed to
     unsafe {
         println!("r1 is: {}", *r1);
@@ -36,6 +45,7 @@ fn main() {
         // we don’t need to add another unsafe block
         dangerous();
         println!("Absolute value of -3 according to C: {}", abs(-3));
+        println!("COUNTER: {}", COUNTER);
     }
 }
 
