@@ -23,5 +23,9 @@ fn main() {
         println!("r2 is: {}", *r2);
         // segmentation fault
         // println!("r is: {}", *r);
+        // we don’t need to add another unsafe block
+        dangerous();
     }
 }
+
+unsafe fn dangerous() {}
