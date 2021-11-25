@@ -17,6 +17,12 @@ fn main() {
     let address = 0x012345usize;
     let r = address as *const i32;
 
+    let mut v = vec![1, 2, 3, 4, 5, 6];
+    let r = &mut v[..];
+    let (a, b) = r.split_at_mut(3);
+    assert_eq!(a, &mut [1, 2, 3]);
+    assert_eq!(b, &mut [4, 5, 6]);
+
     // we can’t dereference raw pointers and read the data being pointed to
     unsafe {
         println!("r1 is: {}", *r1);
@@ -29,3 +35,24 @@ fn main() {
 }
 
 unsafe fn dangerous() {}
+
+use std::slice;
+fn split_at_mut(slice: &mut [i32], mid: usize) -> (&mut [i32], &mut [i32]) {
+    let len = slice.len();
+    // as_mut_ptr returns a raw pointer with the type *mut i32
+    let ptr = slice.as_mut_ptr();
+
+    assert!(mid <= len);
+    // (&mut slice[..mid], &mut slice[mid..])
+    // from_raw_parts_mut is unsafe because it takes a raw pointer
+    // and must trust that this pointer is valid
+    unsafe {
+        (
+            slice::from_raw_parts_mut(ptr, mid),
+            // The add method on raw pointers is also unsafe
+            // because it must trust that the offset location is also a valid pointer
+            slice::from_raw_parts_mut(ptr.add(mid), len - mid),
+        )
+    }
+
+}
