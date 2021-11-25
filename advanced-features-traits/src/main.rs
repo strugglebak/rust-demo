@@ -61,6 +61,33 @@ impl Animal for Dog {
     }
 }
 
+use std::fmt;
+trait OutlinePrint: fmt::Display {
+    fn outline_print(&self) {
+        // without fmt::Display, to_string() will be error
+        let output = self.to_string();
+        let len = output.len();
+        println!("{}", "*".repeat(len + 4));
+        println!("*{}*", " ".repeat(len + 2));
+        println!("* {} *", output);
+        println!("*{}*", " ".repeat(len + 2));
+        println!("{}", "*".repeat(len + 4));
+    }
+}
+
+
+// error:
+// Display is required but not implemented
+impl OutlinePrint for Point {}
+// fix it by
+impl fmt::Display for Point {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "({}, {})", self.x, self.y)
+    }
+}
+// we can call outline_print on a Point instance
+// to display it within an outline of asterisks
+
 fn main() {
     assert_eq!(
         Point { x: 1, y: 0 } + Point { x: 2, y: 3 },
