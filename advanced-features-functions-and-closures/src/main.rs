@@ -24,8 +24,23 @@ fn main() {
         Value(u32),
         Stop,
     }
+
+    // We can use these initializer functions
+    // as function pointers that implement the closure traits
+
     // creating Status::Value instances
     // using the initializer function of Status::Value
     let list_of_statuses: Vec<Status> =
         (0u32..20).map(Status::Value).collect();
+}
+
+// error:
+// Rust doesn’t know how much space it will need to store the closure
+// you’re not allowed to use the function pointer fn as a return type
+// fn returns_closure() -> dyn Fn(i32) -> i32 {
+//     |x| x + 1
+// }
+// to fix it
+fn returns_closure() -> Box<dyn Fn(i32) -> i32> {
+    Box::new(|x| x + 1)
 }
