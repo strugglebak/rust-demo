@@ -1,7 +1,7 @@
 use std::thread;
 use std::sync::{mpsc, Arc, Mutex};
 
-struct Job;
+type Job = Box<dyn FnOnce() + Send + 'static>;
 
 struct Worker {
   id: usize,
@@ -9,9 +9,29 @@ struct Worker {
 }
 impl Worker {
   fn new(id: usize, receiver: Arc<Mutex<mpsc::Receiver<Job>>>) -> Worker {
-    let thread = thread::spawn(|| {
-      receiver;
+    // we need the closure to loop forever
+    // asking the receiving end of the channel for a job
+    // and running the job when it gets one
+    let thread = thread::spawn(move || loop {
+      let job = receiver.lock().unwrap().recv().unwrap();
+      println!("Worker {} got a job; executing.", id);
+      job();
     });
+
+    // ↓
+    // This code compiles and runs but doesn’t result in the desired threading behavior
+    // while let (and if let and match) does not drop temporary values until the end of the associated block
+    // but let doesn't
+    // so the lock remains held for the duration of the call to job(),
+    // meaning other workers cannot receive jobs.
+    // ↓
+
+    // let thread = thread::spawn(move|| {
+    //   while let Ok(job) = receiver.lock().unwrap().recv() {
+    //     println!("Worker {} got a job; executing.", id);
+    //     job();
+    //   }
+    // });
     Worker {
       id,
       thread,
@@ -22,7 +42,7 @@ impl Worker {
 pub struct ThreadPool {
   workers: Vec<Worker>,
   sender: mpsc::Sender<Job>,
-};
+}
 
 impl ThreadPool {
   pub fn new(size: usize) -> ThreadPool {
@@ -46,6 +66,7 @@ impl ThreadPool {
     // 3. `'static` we don’t know how long the thread will take to execute
     F: FnOnce() + Send + 'static
   {
-
+    let job = Box::new(f);
+    self.sender.send(job).unwrap();
   }
 }

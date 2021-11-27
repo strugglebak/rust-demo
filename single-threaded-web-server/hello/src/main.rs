@@ -24,7 +24,7 @@ fn handle_connection(mut stream: TcpStream) {
     stream.read(&mut buffer).unwrap();
 
     // takes a &[u8] and produces a String from it
-    println!("Request: {}", String::from_utf8_lossy(&buffer[..]));
+    // println!("Request: {}", String::from_utf8_lossy(&buffer[..]));
 
     let get = b"GET / HTTP/1.1\r\n";
     let sleep = b"GET /sleep HTTP/1.1\r\n";
@@ -43,7 +43,7 @@ fn handle_connection(mut stream: TcpStream) {
         contents.len(),
         contents
     );
-    println!("Response: {}", response);
+    // println!("Response: {}", response);
 
     stream.write(response.as_bytes()).unwrap();
     stream.flush().unwrap();
