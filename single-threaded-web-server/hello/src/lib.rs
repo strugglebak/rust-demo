@@ -5,7 +5,7 @@ type Job = Box<dyn FnOnce() + Send + 'static>;
 
 struct Worker {
   id: usize,
-  thread: thread::JoinHandle<()>,
+  thread: Option<thread::JoinHandle<()>>,
 }
 impl Worker {
   fn new(id: usize, receiver: Arc<Mutex<mpsc::Receiver<Job>>>) -> Worker {
@@ -34,7 +34,7 @@ impl Worker {
     // });
     Worker {
       id,
-      thread,
+      thread: Some(thread),
     }
   }
 }
@@ -68,5 +68,16 @@ impl ThreadPool {
   {
     let job = Box::new(f);
     self.sender.send(job).unwrap();
+  }
+}
+
+impl Drop for ThreadPool {
+  fn drop(&mut self) {
+    for worker in &mut self.workers {
+      println!("Shutting down worker {}", worker.id);
+      if let Some(thread) = worker.thread.take() {
+        thread.join().unwrap();
+      }
+    }
   }
 }
