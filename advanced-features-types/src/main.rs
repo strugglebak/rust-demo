@@ -42,7 +42,7 @@ fn main() {
 // ?Sized means “T may or may not be Sized”
 fn generic<T: ?Sized>(t: &T) {
     // &T
-    // ecause the type might not be Sized,
+    // because the type might not be Sized,
     // we need to use it behind some kind of pointer
     // --snip--
 }
